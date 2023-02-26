@@ -1,26 +1,32 @@
-<mat-card class="mat-elevation-z8">
+<mat-card>
     <mat-card-content>
-        teste
+        <mat-toolbar color = "primary">
+            <span>Apontamentos</span>
+        </mat-toolbar>
+
+        <table mat-table [dataSource] = "list" class = "mat-elevation-z8">
+            <ng-container matColumnDef = "date">
+                <th mat-header-cell *matHeaderCellDef>Data</th>
+                <td mat-cell *matCellDef = "let workingDay">{{workingDay.date | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+        
+            <ng-container matColumnDef = "startTime">
+                <th mat-header-cell *matHeaderCellDef>Hr. Inicial</th>
+                <td mat-cell *matCellDef = "let workingDay">{{workingDay.startTime}}</td>
+            </ng-container>
+        
+            <ng-container matColumnDef = "endTime">
+                <th mat-header-cell *matHeaderCellDef>Hr. Final</th>
+                <td mat-cell *matCellDef = "let workingDay">{{workingDay.endTime}}</td>
+            </ng-container>
+        
+            <ng-container matColumnDef = "registered">
+                <th mat-header-cell *matHeaderCellDef>Registrado?</th>
+                <td mat-cell *matCellDef = "let workingDay">{{workingDay.registered ? 'Sim' : 'Não'}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef = "displayedColumns"></tr>
+            <tr mat-row *matRowDef = "let row; columns: displayedColumns"></tr>
+        </table>
     </mat-card-content>
 </mat-card>
-<!--<table mat-table [dataSource] = "list">
-    <ng-container>
-        <th></th>
-        <td></td>
-    </ng-container>
-
-    <ng-container>
-        <th></th>
-        <td></td>
-    </ng-container>
-
-    <ng-container>
-        <th></th>
-        <td></td>
-    </ng-container>
-
-    <ng-container>
-        <th></th>
-        <td></td>
-    </ng-container>
-</table>-->
