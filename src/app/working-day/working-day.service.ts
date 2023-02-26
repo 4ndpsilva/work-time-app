@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { delay, Observable } from 'rxjs';
+
 import { WorkingDay } from './model/working-day';
 
 @Injectable()
 export class WorkingDayService {
-  /*private readonly apiURL: string = 'http://localhost:3000/work-time';
+  private readonly apiURL: string = 'http://localhost:3000/work-time';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<WorkingDay[]>{
-    return [];
-  }*/
+    return this.http.get<WorkingDay[]>(this.apiURL)
+      .pipe(
+        delay(2000)
+      );
+  }
 }
