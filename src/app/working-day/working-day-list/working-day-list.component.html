@@ -7,8 +7,8 @@
             </button>
         </mat-toolbar>
 
-        <div *ngIf = "dataSource != null; else loading;" class = "mat-elevation-z8">
-            <table mat-table [dataSource] = "dataSource">
+        <div *ngIf = "customDataSource != null; else loading;" class = "mat-elevation-z8">
+            <table mat-table [dataSource] = "customDataSource">
                 <ng-container matColumnDef = "date">
                     <th mat-header-cell *matHeaderCellDef>Data</th>
                     <td mat-cell *matCellDef = "let workingDay">{{workingDay.date | date: 'dd/MM/yyyy'}}</td>

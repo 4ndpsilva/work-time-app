@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 
+import { GenericDataSource } from './../generic-datasource';
 import { WorkingDay } from './../model/working-day';
 import { WorkingDayService } from './../working-day.service';
 
@@ -10,18 +10,17 @@ import { WorkingDayService } from './../working-day.service';
   templateUrl: './working-day-list.component.html',
   styleUrls: ['./working-day-list.component.scss']
 })
-export class WorkingDayListComponent{
-  displayedColumns = ['date', 'startTime', 'endTime', 'registered'];
-  list: WorkingDay[];
-  dataSource: MatTableDataSource<WorkingDay>;
+export class WorkingDayListComponent implements AfterViewInit{
+  displayedColumns = ['date', 'startTime', 'endTime', 'registered'];  
+  customDataSource: GenericDataSource<WorkingDay>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private service: WorkingDayService){
-    this.service.getAll().subscribe(data => {
-      this.list = data;
-      this.dataSource = new MatTableDataSource(this.list);
-      this.dataSource.paginator = this.paginator;
-    });
+    this.customDataSource = new GenericDataSource(this.service.getAll());
+  }
+
+  ngAfterViewInit(): void {
+    this.customDataSource.paginator = this.paginator;
   }
 }
