@@ -1,5 +1,6 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { catchError, of } from 'rxjs';
 
 import { GenericDataSource } from './../generic-datasource';
 import { WorkingDay } from './../model/working-day';
@@ -17,7 +18,11 @@ export class WorkingDayListComponent implements AfterViewInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private service: WorkingDayService){
-    this.customDataSource = new GenericDataSource(this.service.getAll());
+    this.customDataSource = new GenericDataSource(this.service.getAll().pipe(
+      catchError(e => {
+        return of([]);
+      })
+    ));
   }
 
   ngAfterViewInit(): void {
